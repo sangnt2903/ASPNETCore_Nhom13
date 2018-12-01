@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASPNETCore_Nhom13.Models;
 using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace ASPNETCore_Nhom13.Controllers
 {
@@ -20,15 +21,14 @@ namespace ASPNETCore_Nhom13.Controllers
         }
 
         // GET: TinTucs
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             List<TinTuc> dsTin = new List<TinTuc>();
             if (HttpContext.Session.Get("admin") != null)
             {
                 dsTin = _context.TinTucs.OrderBy(p => p.NgayDang).ToList();
             }
-            var myDbContext = _context.TinTucs.Include(t => t.NguoiDung).Include(t => t.TheLoai);
-            return View(await myDbContext.ToListAsync());
+            return View(dsTin);
         }
 
         // GET: TinTucs/Details/5
@@ -54,8 +54,16 @@ namespace ASPNETCore_Nhom13.Controllers
         // GET: TinTucs/Create
         public IActionResult Create()
         {
-            ViewData["MaNguoiDung"] = new SelectList(_context.NguoiDungs, "MaNguoiDung", "HoTen");
-            ViewData["MaTheLoai"] = new SelectList(_context.TheLoais, "MaTheLoai", "TenTheLoai");
+            if (HttpContext.Session.Get("admin") != null)
+            {
+                ViewData["MaNguoiDung"] = new SelectList(_context.NguoiDungs, "MaNguoiDung", "HoTen");
+                ViewData["MaTheLoai"] = new SelectList(_context.TheLoais, "MaTheLoai", "TenTheLoai");
+                
+            }
+            else
+            {
+                return RedirectToAction("Index", "NguoiDung");
+            }
             return View();
         }
 
@@ -64,10 +72,17 @@ namespace ASPNETCore_Nhom13.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaTin,TieuDe,NoiDung,Hinh,NgayDang,MaTheLoai,MaNguoiDung")] TinTuc tinTuc)
+        public async Task<IActionResult> Create([Bind("MaTin,TieuDe,NoiDung,Hinh,NgayDang,MaTheLoai,MaNguoiDung")] TinTuc tinTuc,IFormFile fHinh)
         {
             if (ModelState.IsValid)
             {
+                tinTuc.TrangThai = false;
+                if(fHinh != null)
+                {
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fHinh.FileName);
+                    using (var file = new FileStream(path, FileMode.Create))
+                        tinTuc.Hinh = fHinh.FileName;
+                }
                 _context.Add(tinTuc);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
