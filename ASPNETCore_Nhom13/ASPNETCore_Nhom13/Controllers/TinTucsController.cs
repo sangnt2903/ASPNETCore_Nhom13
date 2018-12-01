@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASPNETCore_Nhom13.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace ASPNETCore_Nhom13.Controllers
 {
@@ -21,6 +22,11 @@ namespace ASPNETCore_Nhom13.Controllers
         // GET: TinTucs
         public async Task<IActionResult> Index()
         {
+            List<TinTuc> dsTin = new List<TinTuc>();
+            if (HttpContext.Session.Get("admin") != null)
+            {
+                dsTin = _context.TinTucs.OrderBy(p => p.NgayDang).ToList();
+            }
             var myDbContext = _context.TinTucs.Include(t => t.NguoiDung).Include(t => t.TheLoai);
             return View(await myDbContext.ToListAsync());
         }
