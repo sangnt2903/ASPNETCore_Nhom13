@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ASPNETCore_Nhom13.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,7 +33,7 @@ namespace ASPNETCore_Nhom13
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<>(option => option.UseSqlServer(Configuration.GetConnectionString("chuoiketnoi"))); // khi xài vô cài lại
+            services.AddDbContext<MyDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("chuoiketnoi"))); // khi xài vô cài lại
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
