@@ -15,5 +15,13 @@ namespace ASPNETCore_Nhom13.Models
         public MyDbContext() { }
         public MyDbContext(DbContextOptions options) : base(options) { }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=TUTUPS\\SQLEXPRESS01;Database=QLTT;Integrated Security=True;");
+            }
+        }
+
     }
 }
