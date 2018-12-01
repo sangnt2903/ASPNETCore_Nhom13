@@ -36,29 +36,13 @@ namespace ASPNETCore_Nhom13.Migrations
                     b.ToTable("NguoiDungs");
                 });
 
-            modelBuilder.Entity("ASPNETCore_Nhom13.Models.TheLoai", b =>
-                {
-                    b.Property<int>("MaTheLoai")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("TenTheLoai")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("MaTheLoai");
-
-                    b.ToTable("TheLoais");
-                });
-
             modelBuilder.Entity("ASPNETCore_Nhom13.Models.TinTuc", b =>
                 {
                     b.Property<int>("MaTin")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Hinh")
-                        .IsRequired();
+                    b.Property<string>("Hinh");
 
                     b.Property<int>("MaNguoiDung");
 
@@ -82,6 +66,21 @@ namespace ASPNETCore_Nhom13.Migrations
                     b.HasIndex("MaTheLoai");
 
                     b.ToTable("TinTucs");
+                });
+
+            modelBuilder.Entity("ASPNETCore_Nhom13.Models.TheLoai", b =>
+                {
+                    b.Property<int>("MaTheLoai")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TenTheLoai")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("MaTheLoai");
+
+                    b.ToTable("TheLoais");
                 });
 
             modelBuilder.Entity("ASPNETCore_Nhom13.Models.TinTuc", b =>

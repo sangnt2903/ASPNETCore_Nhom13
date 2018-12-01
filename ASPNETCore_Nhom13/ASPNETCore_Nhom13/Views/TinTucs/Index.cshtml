@@ -25,10 +25,10 @@
                 @Html.DisplayNameFor(model => model.NgayDang)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TheLoai)
+                @Html.DisplayNameFor(model => model.TrangThai)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NguoiDung)
+                Duyet
             </th>
             <th></th>
         </tr>
@@ -43,16 +43,21 @@
                 @Html.DisplayFor(modelItem => item.NoiDung)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Hinh)
+                <img src="~/Hinh/@item.Hinh" alt="Alternate Text" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NgayDang)
             </td>
+            @if (item.TrangThai == false)
+            {
+                <td>Chua duyet</td>
+            }
+            else
+            {
+                <td>Da duyet</td>
+            }
             <td>
-                @Html.DisplayFor(modelItem => item.TheLoai.TenTheLoai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NguoiDung.HoTen)
+                <a asp-action="DuyetBai" asp-route-matin="@item.MaTin">Duyet</a>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.MaTin">Edit</a> |

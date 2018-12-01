@@ -31,6 +31,18 @@ namespace ASPNETCore_Nhom13.Controllers
             return View(dsTin);
         }
 
+        public IActionResult DuyetBai(int matin)
+        {
+            if (HttpContext.Session.Get("admin") != null)
+            {
+                TinTuc t = _context.TinTucs.SingleOrDefault(p => p.MaTin == matin);
+                t.TrangThai = true;
+                _context.SaveChanges();
+            }
+            
+            return RedirectToAction("Index");
+        }
+
         // GET: TinTucs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -71,21 +83,23 @@ namespace ASPNETCore_Nhom13.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaTin,TieuDe,NoiDung,Hinh,NgayDang,MaTheLoai,MaNguoiDung")] TinTuc tinTuc,IFormFile fHinh)
+        public IActionResult Create(TinTuc tinTuc,IFormFile fHinh)
         {
             if (ModelState.IsValid)
             {
                 tinTuc.TrangThai = false;
-                if(fHinh != null)
+                if (fHinh != null)
                 {
-                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fHinh.FileName);
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Hinh", fHinh.FileName);
                     using (var file = new FileStream(path, FileMode.Create))
-                        tinTuc.Hinh = fHinh.FileName;
+                    {
+                        fHinh.CopyTo(file);
+                    }
+                    tinTuc.Hinh = fHinh.FileName;
                 }
                 _context.Add(tinTuc);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
             ViewData["MaNguoiDung"] = new SelectList(_context.NguoiDungs, "MaNguoiDung", "HoTen", tinTuc.MaNguoiDung);
             ViewData["MaTheLoai"] = new SelectList(_context.TheLoais, "MaTheLoai", "TenTheLoai", tinTuc.MaTheLoai);

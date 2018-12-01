@@ -16,7 +16,6 @@ namespace ASPNETCore_Nhom13.Models
         public string TieuDe { get; set; }
         [Required]
         public string NoiDung { get; set; }
-        [Required]
         public string Hinh { get; set; }
         [Required]
         public DateTime NgayDang { get; set; }
