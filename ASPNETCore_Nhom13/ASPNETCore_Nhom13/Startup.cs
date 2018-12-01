@@ -36,14 +36,8 @@ namespace ASPNETCore_Nhom13
             services.AddDbContext<MyDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("chuoiketnoi"))); // khi xài vô cài lại
        
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-<<<<<<< HEAD
-            services.AddSession(option =>
-            {
-                option.IdleTimeout = TimeSpan.FromMinutes(5);
-=======
             services.AddSession(options => {
                 options.IdleTimeout = TimeSpan.FromHours(48);
->>>>>>> 023e4b2ed9bad5d18e94810c3a9b6e62e079ede2
             });
         }
 
