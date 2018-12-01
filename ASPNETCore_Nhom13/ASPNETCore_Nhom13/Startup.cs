@@ -34,7 +34,11 @@ namespace ASPNETCore_Nhom13
             });
 
             services.AddDbContext<MyDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("chuoiketnoi"))); // khi xài vô cài lại
+       
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromHours(48);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +53,7 @@ namespace ASPNETCore_Nhom13
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
