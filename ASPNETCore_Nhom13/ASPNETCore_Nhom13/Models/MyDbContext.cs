@@ -19,7 +19,7 @@ namespace ASPNETCore_Nhom13.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=TUTUPS\\SQLEXPRESS01;Database=QLTT;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=THANHSANG\\SQLEXPRESS;Database=QLTT;Integrated Security=True;");
             }
         }
 
