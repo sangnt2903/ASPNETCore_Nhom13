@@ -27,7 +27,9 @@ namespace ASPNETCore_Nhom13.Models
 
         public int MaNguoiDung { get; set; }
         [ForeignKey("MaNguoiDung")]
-        public NguoiDung NguoiDung { get; set; }
+        //public NguoiDung NguoiDung { get; set; }
+
+        public bool TrangThai { get; set; }
 
     }
 }

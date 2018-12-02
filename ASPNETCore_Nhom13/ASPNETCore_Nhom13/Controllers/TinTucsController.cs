@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ASPNETCore_Nhom13.Models;
+using ASPCore_Final.Models;
 
 namespace ASPNETCore_Nhom13.Controllers
 {
@@ -19,10 +20,14 @@ namespace ASPNETCore_Nhom13.Controllers
         }
 
         // GET: TinTucs
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var myDbContext = _context.TinTucs.Include(t => t.NguoiDung).Include(t => t.TheLoai);
-            return View(await myDbContext.ToListAsync());
+            List<TinTuc> res = new List<TinTuc>();
+            if(HttpContext.Session.Get<string>("admin") != null)
+            {
+               // res = _context.TinTucs.
+            }
+            return View();
         }
 
         // GET: TinTucs/Details/5

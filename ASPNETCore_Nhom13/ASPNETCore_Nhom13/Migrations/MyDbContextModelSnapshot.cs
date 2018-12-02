@@ -15,7 +15,7 @@ namespace ASPNETCore_Nhom13.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -72,6 +72,8 @@ namespace ASPNETCore_Nhom13.Migrations
                     b.Property<string>("TieuDe")
                         .IsRequired()
                         .HasMaxLength(50);
+
+                    b.Property<bool>("TrangThai");
 
                     b.HasKey("MaTin");
 
