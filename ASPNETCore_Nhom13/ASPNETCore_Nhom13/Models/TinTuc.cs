@@ -16,7 +16,6 @@ namespace ASPNETCore_Nhom13.Models
         public string TieuDe { get; set; }
         [Required]
         public string NoiDung { get; set; }
-        [Required]
         public string Hinh { get; set; }
         [Required]
         public DateTime NgayDang { get; set; }
@@ -28,6 +27,8 @@ namespace ASPNETCore_Nhom13.Models
         public int MaNguoiDung { get; set; }
         [ForeignKey("MaNguoiDung")]
         //public NguoiDung NguoiDung { get; set; }
+
+        public bool TrangThai { get; set; }
 
         public bool TrangThai { get; set; }
 

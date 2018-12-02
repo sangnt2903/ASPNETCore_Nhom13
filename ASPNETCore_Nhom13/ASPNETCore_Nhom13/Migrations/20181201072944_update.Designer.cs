@@ -4,18 +4,20 @@ using ASPNETCore_Nhom13.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ASPNETCore_Nhom13.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181201072944_update")]
+    partial class update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -36,13 +38,29 @@ namespace ASPNETCore_Nhom13.Migrations
                     b.ToTable("NguoiDungs");
                 });
 
+            modelBuilder.Entity("ASPNETCore_Nhom13.Models.TheLoai", b =>
+                {
+                    b.Property<int>("MaTheLoai")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("TenTheLoai")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("MaTheLoai");
+
+                    b.ToTable("TheLoais");
+                });
+
             modelBuilder.Entity("ASPNETCore_Nhom13.Models.TinTuc", b =>
                 {
                     b.Property<int>("MaTin")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Hinh");
+                    b.Property<string>("Hinh")
+                        .IsRequired();
 
                     b.Property<int>("MaNguoiDung");
 
@@ -66,21 +84,6 @@ namespace ASPNETCore_Nhom13.Migrations
                     b.HasIndex("MaTheLoai");
 
                     b.ToTable("TinTucs");
-                });
-
-            modelBuilder.Entity("ASPNETCore_Nhom13.Models.TheLoai", b =>
-                {
-                    b.Property<int>("MaTheLoai")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("TenTheLoai")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("MaTheLoai");
-
-                    b.ToTable("TheLoais");
                 });
 
             modelBuilder.Entity("ASPNETCore_Nhom13.Models.TinTuc", b =>
